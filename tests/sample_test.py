@@ -1,1 +1,3 @@
-print(2+2)
+# sample test
+def test_add():
+    assert 2 + 3
