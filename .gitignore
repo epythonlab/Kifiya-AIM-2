@@ -3,6 +3,6 @@
 
 # Exclude the data directory
 data/
-
+data.zip
 # Exclude the .venv virtual environment directory
 .venv/
