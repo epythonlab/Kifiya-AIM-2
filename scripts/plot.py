@@ -47,3 +47,42 @@ def plot_cleaning_impact(df, sensor_columns, title):
     plt.show()
 
 
+def correlation_heatmap(df, columns, method="heatmap", title="Correlation Heatmap"):
+    """
+    Visualize the correlations between solar radiation components (GHI, DNI, DHI) 
+    and temperature measures (TModA, TModB) using heatmaps or pair plots.
+        
+    Parameters:
+    - df: DataFrame containing the data.
+    - method: Visualization method ("heatmap" or "pairplot").
+    - title: Title of the heatmap.
+    """
+
+    if method == "heatmap":
+        corr = df[columns].corr()
+        plt.figure(figsize=(8, 6))
+        sns.heatmap(corr, annot=True, cmap='coolwarm', fmt='.2f', square=True)
+        plt.title(title)
+        plt.show()
+    
+    elif method == "pairplot":
+        sns.pairplot(df[columns], corner=True)
+        plt.suptitle(title)
+        plt.show()
+    
+    else:
+        raise ValueError("Method must be 'heatmap' or 'pairplot'")
+    
+
+def scatter_matrix(df, columns, title="Scatter Matrix"):
+    """
+    Generate a scatter matrix to visualize relationships between the specified variables.
+    
+    Parameters:
+    - df: DataFrame containing the data.
+    - columns: List of column names to include in the scatter matrix.
+    - title: Title of the scatter matrix.
+    """
+    sns.pairplot(df[columns], corner=True)
+    plt.suptitle(title)
+    plt.show()
