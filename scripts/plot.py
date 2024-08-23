@@ -123,3 +123,34 @@ def plot_wind_polar(df, ws_column, wd_column, title):
     
     plt.title(title)
     plt.show()
+
+def temperature_analysis(df, columns, plot_type='heatmap', title="Togo"):
+    """
+    Analyze the relationship between relative humidity (RH) and temperature readings (Tamb) 
+    and solar radiation components (GHI, DNI, DHI).
+
+    Parameters:
+    - df: DataFrame containing the dataset.
+    - plot_type: Type of plot to generate ('heatmap' or 'scatter').
+    - columns: List of columns to include in the analysis (default includes RH, Tamb, GHI, DNI, DHI).
+
+    Returns:
+    - A correlation matrix and visualizations of the relationships between RH, Tamb, and solar radiation components.
+    """
+
+    # Correlation analysis
+    correlation_matrix = df[columns].corr()
+
+    if plot_type == 'heatmap':
+        # Heatmap visualization
+        plt.figure(figsize=(10, 6))
+        sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f')
+        plt.title('Correlation Heatmap of '+title )
+        plt.show()
+    elif plot_type == 'scatter':
+        # Scatter plot visualization
+        sns.pairplot(df[columns], kind='reg', diag_kind='kde')
+        plt.suptitle('Scatter Plot Matrix of Temperature, Solar Radiation, and Humidity', y=1.02)
+        plt.show()
+    else:
+        raise ValueError("Invalid plot_type. Choose 'heatmap' or 'scatter'.")
