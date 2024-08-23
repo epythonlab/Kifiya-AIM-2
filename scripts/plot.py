@@ -30,17 +30,17 @@ def plot_time_series(df, title):
     plt.ylabel('Values')
     plt.legend()
     plt.grid(True)
-
+    plt.gcf().autofmt_xdate()
     # Display the plot
     plt.show()
 
-def plot_cleaning_impact(df, sensor_columns):
+def plot_cleaning_impact(df, sensor_columns, title):
     plt.figure(figsize=(12, 8))
     for column in sensor_columns:
         sns.lineplot(data=df, x='Timestamp', y=column, hue='Cleaning', marker=None)
     plt.xlabel('Time')
     plt.ylabel('Sensor Reading')
-    plt.title('Impact of Cleaning on Sensor Readings')
+    plt.title(title)
     plt.legend(title='Cleaning Event')
     plt.grid(True)
     plt.gcf().autofmt_xdate()
