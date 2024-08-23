@@ -4,6 +4,8 @@
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+import numpy as np
+
 def plot_time_series(df, title):
     """
     Plots time series data for specified columns using Seaborn.
@@ -85,4 +87,39 @@ def scatter_matrix(df, columns, title="Scatter Matrix"):
     """
     sns.pairplot(df[columns], corner=True)
     plt.suptitle(title)
+    plt.show()
+
+
+def plot_wind_polar(df, ws_column, wd_column, title):
+    """
+    Plot a polar plot to analyze wind speed and direction distribution.
+    
+    Parameters:
+    df (pd.DataFrame): The DataFrame containing wind data.
+    ws_column (str): The name of the column for wind speed.
+    wd_column (str): The name of the column for wind direction.
+    
+    Returns:
+    None: Displays a polar plot showing wind speed and direction distribution.
+    
+    Example:
+    >>> plot_wind_polar(df, 'WS', 'WD')
+    """
+    # Convert wind direction from degrees to radians
+    wd_rad = np.deg2rad(df[wd_column])
+    
+    # Create polar plot
+    plt.figure(figsize=(10, 8))
+    ax = plt.subplot(111, projection='polar')
+    ax.set_theta_direction(-1)
+    ax.set_theta_offset(np.pi / 2.0)
+    
+    # Plot the wind speed and direction
+    scatter = ax.scatter(wd_rad, df[ws_column], alpha=0.75, cmap='viridis')
+    
+    # Add color bar
+    cbar = plt.colorbar(scatter, ax=ax)
+    cbar.set_label(ws_column)
+    
+    plt.title(title)
     plt.show()
