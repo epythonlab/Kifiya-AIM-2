@@ -154,3 +154,36 @@ def temperature_analysis(df, columns, plot_type='heatmap', title="Togo"):
         plt.show()
     else:
         raise ValueError("Invalid plot_type. Choose 'heatmap' or 'scatter'.")
+
+def plot_histograms(dataframes, variables, region_names, bins=30):
+    """
+    Plot histograms for the specified variables across multiple regions.
+
+    Parameters:
+    -----------
+    dataframes : list of pd.DataFrame
+        List of DataFrames, each containing data for a specific region.
+    variables : list of str
+        List of variable names (columns) to plot histograms for.
+    region_names : list of str
+        List of names of the regions corresponding to each DataFrame.
+    bins : int, optional
+        Number of bins for the histograms. Default is 30.
+
+    Returns:
+    --------
+    None
+    """
+    for var in variables:
+        plt.figure(figsize=(15, 8))
+        
+        for df, region in zip(dataframes, region_names):
+            sns.histplot(df[var], bins=bins, kde=True, label=region, element="step")
+        
+        plt.title(f'Histogram of {var}')
+        plt.xlabel(var)
+        plt.ylabel('Frequency')
+        plt.legend(title='Region')
+        plt.grid(True)
+        plt.show()
+   
