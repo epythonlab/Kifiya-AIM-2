@@ -186,4 +186,36 @@ def plot_histograms(dataframes, variables, region_names, bins=30):
         plt.legend(title='Region')
         plt.grid(True)
         plt.show()
-   
+        
+def plot_bubble_chart(df, x_var, y_var, size_var, color_var, title):
+    """
+    Plots a bubble chart to explore the relationship between multiple variables.
+
+    Parameters:
+    df (DataFrame): The DataFrame containing the data.
+    x_var (str): The column name for the x-axis variable (e.g., GHI).
+    y_var (str): The column name for the y-axis variable (e.g., Tamb).
+    size_var (str): The column name for the bubble size variable (e.g., WS).
+    color_var (str): The column name for the color variable (e.g., RH or BP).
+    title (str): The title of the plot.
+    
+    Returns:
+    None
+    """
+    plt.figure(figsize=(10, 8))
+    sns.scatterplot(
+        data=df,
+        x=x_var,
+        y=y_var,
+        size=size_var,
+        hue=color_var,
+        sizes=(20, 200),
+        palette="viridis",
+        alpha=0.6,
+        edgecolor="w",
+    )
+    plt.title(title)
+    plt.xlabel(x_var)
+    plt.ylabel(y_var)
+    plt.legend(title=size_var)
+    plt.show()   
